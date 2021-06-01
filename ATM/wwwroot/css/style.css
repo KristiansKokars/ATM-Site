@@ -1,0 +1,18 @@
+﻿.warning {
+    color: red;
+    font-weight: bold;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    margin: 10px;
+}
+
+.center-container {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}

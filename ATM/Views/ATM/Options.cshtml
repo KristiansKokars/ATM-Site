@@ -1,0 +1,116 @@
+﻿@model ADO.NET.Models.AccountModel
+@{
+    ViewData["Title"] = "ATM Options";
+}
+
+<h1 class="warning center-container">@ViewData["Notification"]</h1>
+<div class="center-container"><h1>Welcome back <b> @Model.Name @Model.Surname</b>!</h1></div>
+<div class="center-container"><h2>Bank Balance: <b> @Model.Money EUR</b></h2></div>
+<div class="container-fluid center-container">
+    <ul class="align-items-center">
+        <li>
+            <a role="button" class="btn btn-outline-secondary col-12" data-toggle="modal" data-target="#withdrawModal">Withdraw</a>
+        </li>
+        <li>
+            <a role="button" class="btn btn-outline-secondary col-12" data-toggle="modal" data-target="#depositModal">Deposit</a>
+        </li>
+        <li>
+            <a role="button" class="btn btn-outline-secondary col-12" data-toggle="modal" data-target="#activityModal">Activity Log</a>
+        </li>
+        <li>
+            <a asp-action="Index" role="button" class="btn btn-outline-secondary col-12">Leave</a>
+        </li>
+    </ul>
+</div>
+
+<!-- Withdrawal Modal -->
+<div class="modal fade" id="withdrawModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Withdraw</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Withdraw" asp-controller="ATM" asp-route-accountNumber="@Model.AccountNumber" method="post">
+                    <div class="form-group">
+                        <label class="control-label">Enter amount of money to withdraw:</label>
+                        <input class="form-control" name="moneyAmount" type="number" />
+                        <br />
+                        <input type="submit" class="btn btn-outline-secondary" value="Submit" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Leave without Withdrawing</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Deposit Modal -->
+<div class="modal fade" id="depositModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Deposit</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Deposit" asp-controller="ATM" asp-route-accountNumber="@Model.AccountNumber" method="post">
+                    <div class="form-group">
+                        <label class="control-label">Enter amount of money to deposit:</label>
+                        <input class="form-control" name="moneyAmount" type="number" />
+                        <br />
+                        <input type="submit" class="btn btn-outline-secondary" value="Submit" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Leave without Depositing</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Activity/Logs Modal -->
+<div class="modal fade" id="activityModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <table class="table overflow-auto">
+                    <thead>
+                        <tr>
+                            <th>
+                                Date
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var log in Model.Logs)
+                        {
+                            <tr>
+                                <td>
+                                    @log.Date
+                                </td>
+                                <td>
+                                    @log.Action
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Leave</button>
+            </div>
+        </div>
+    </div>
+</div>

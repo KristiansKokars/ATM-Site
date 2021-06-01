@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "ATM";
+}
+
+<div class="container-fluid justify-content-center">
+    <div class="center-container"><h1>Welcome to the ATM! Insert your card number into this nice field to access available options.</h1></div>
+    <div class="center-container"><h2 class="warning">@ViewData["Notification"]</h2></div>
+    <form asp-action="Index" asp-controller="ATM">
+        <div class="form-group">
+            <label class="control-label">Card Number</label>
+            <input class="form-control" name="cardNumber" maxlength="16" />
+            <label class="control-label">PIN</label>
+            <input class="form-control" name="cardPIN" maxlength="4" type="password" />
+            <br />
+            <input type="submit" class="btn btn-outline-secondary" value="Submit" />
+        </div>
+    </form>
+</div>
